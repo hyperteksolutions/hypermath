@@ -27,6 +27,9 @@ console.log(HyperMath.add(0.1, 0.2)); // 0.3 (instead of 0.30000000000000004)
 
 // Division
 console.log(HyperMath.divide(0.3, 0.1)); // 3 (instead of 2.9999999999999996)
+
+// Subtraction
+console.log(HyperMath.subtract(0.3, 0.1)); // 0.2 (instead of 0.19999999999999998)
 ```
 
 ## Features

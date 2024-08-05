@@ -19,7 +19,7 @@ describe('HyperMath', () => {
 
     it('should throw an error if the input is invalid', () => {
       expect(() => {
-        HyperMath.multiply('abc', 3);
+        HyperMath.multiply('abc', null);
       }).toThrow('Invalid input');
     });
   });
@@ -66,6 +66,29 @@ describe('HyperMath', () => {
     it('should throw an error if the input is invalid', () => {
       expect(() => {
         HyperMath.divide('abc', 3);
+      }).toThrow('Invalid input');
+    });
+  });
+
+  describe('subtract', () => {
+    it('should subtract two numbers correctly', () => {
+      const result = HyperMath.subtract(7, 5);
+      expect(result).toBe(2);
+    });
+
+    it('should subtract two values with decimals correctly', () => {
+      const result = HyperMath.subtract(8.5, '3.3');
+      expect(result).toBe(5.2);
+    });
+
+    it('should subtract two strings that represent numbers correctly', () => {
+      const result = HyperMath.subtract('9', '5');
+      expect(result).toBe(4);
+    });
+
+    it('should throw an error if the input is invalid', () => {
+      expect(() => {
+        HyperMath.subtract(undefined, 3);
       }).toThrow('Invalid input');
     });
   });

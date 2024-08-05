@@ -1,6 +1,4 @@
 export class HyperMath {
-  constructor() {}
-
   static processInput(value: number | string): number {
     if (typeof value === 'string') {
       if (isNaN(parseInt(value))) {

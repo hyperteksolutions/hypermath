@@ -50,6 +50,10 @@ Adds two numbers with improved precision.
 
 Divides two numbers with improved precision.
 
+### `HyperMath.subtract(firstValue: number | string, secondValue: number | string): number`
+
+Subtracts two numbers with improved precision.
+
 ## Notes
 
 - This library uses `toPrecision(2)` internally, which may lead to rounding in some cases. Be aware of this limitation when using the library for calculations requiring high precision.

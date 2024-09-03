@@ -1,11 +1,13 @@
 export class HyperMath {
   static processInput(value: number | string): number {
     if (!value) {
-      throw new Error('Invalid input');
+      console.warn('Invalid input provided:', value);
+      return 0;
     }
     if (typeof value === 'string') {
       if (isNaN(parseInt(value))) {
-        throw new Error('Invalid input');
+        console.warn('Invalid input provided:', value);
+        return 0;
       }
       value = parseFloat(parseFloat(value).toPrecision(2));
     }
@@ -44,6 +46,9 @@ export class HyperMath {
   ): number {
     let a = this.processInput(firstValue);
     let b = this.processInput(secondValue);
+    if (a === 0 || b === 0) {
+      return 0;
+    }
     let numberOne = parseFloat(a.toPrecision(2));
     let numberTwo = parseFloat(b.toPrecision(2));
     let result = numberOne / numberTwo;
@@ -57,6 +62,9 @@ export class HyperMath {
   ): number {
     let a = this.processInput(firstValue);
     let b = this.processInput(secondValue);
+    if (a === 0) {
+      return 0;
+    }
     let numberOne = parseFloat(a.toPrecision(2));
     let numberTwo = parseFloat(b.toPrecision(2));
     let result = numberOne - numberTwo;

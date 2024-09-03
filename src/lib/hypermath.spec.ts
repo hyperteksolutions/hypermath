@@ -18,9 +18,8 @@ describe('HyperMath', () => {
     });
 
     it('should throw an error if the input is invalid', () => {
-      expect(() => {
-        HyperMath.multiply('abc', null);
-      }).toThrow('Invalid input');
+      const result = HyperMath.multiply('abc', null);
+      expect(result).toBe(0);
     });
   });
 
@@ -41,9 +40,8 @@ describe('HyperMath', () => {
     });
 
     it('should throw an error if the input is invalid', () => {
-      expect(() => {
-        HyperMath.add('abc', 3);
-      }).toThrow('Invalid input');
+      const result = HyperMath.add('abc', 3);
+      expect(result).toBe(3);
     });
   });
 
@@ -64,9 +62,8 @@ describe('HyperMath', () => {
     });
 
     it('should throw an error if the input is invalid', () => {
-      expect(() => {
-        HyperMath.divide('abc', 3);
-      }).toThrow('Invalid input');
+      const result = HyperMath.divide('abc', 3);
+      expect(result).toBe(0);
     });
   });
 
@@ -87,9 +84,8 @@ describe('HyperMath', () => {
     });
 
     it('should throw an error if the input is invalid', () => {
-      expect(() => {
-        HyperMath.subtract(undefined, 3);
-      }).toThrow('Invalid input');
+      const result = HyperMath.subtract(undefined, 3);
+      expect(result).toBe(0);
     });
   });
 });

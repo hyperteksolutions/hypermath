@@ -1,6 +1,6 @@
 {
   "name": "hypermath",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Tired of writing a metric ton of code just to have simple multiplication not return incorrect results? Me too...",
   "author": "Hypertek Solutions LLC <contact@hypertek.dev> (https://liveuptothehype.com)",
   "license": "MIT",

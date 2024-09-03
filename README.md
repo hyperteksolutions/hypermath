@@ -5,7 +5,6 @@ HyperMath is a simple JavaScript/TypeScript library designed to address common p
 ![Codecov](https://img.shields.io/codecov/c/github/hyperteksolutions/hypermath)
 [![Npm package version](https://badgen.net/npm/v/hypermath)](https://npmjs.com/package/hypermath)
 [![NPM Package Downloads](https://badgen.net/npm/dt/hypermath)](https://npmjs.com/package/hypermath)
-[![Try on RunKit](https://badge.runkitcdn.com/hypermath.svg)](https://runkit.com/npm/hypermath)
 [![License](https://img.shields.io/github/license/hyperteksolutions/hypermath)](https://github.com/HypertekSolutions/hypermath/blob/master/LICENSE)
 
 ## Installation

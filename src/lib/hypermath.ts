@@ -9,7 +9,7 @@ export class HyperMath {
         console.warn('Invalid input provided:', value);
         return 0;
       }
-      value = parseFloat(parseFloat(value).toPrecision(2));
+      value = parseFloat(parseFloat(value).toFixed(2));
     }
     return value;
   }
@@ -20,10 +20,10 @@ export class HyperMath {
   ): number {
     let a = this.processInput(firstValue);
     let b = this.processInput(secondValue);
-    let numberOne = parseFloat(a.toPrecision(2));
-    let numberTwo = parseFloat(b.toPrecision(2));
+    let numberOne = parseFloat(a.toFixed(2));
+    let numberTwo = parseFloat(b.toFixed(2));
     let result = numberOne * numberTwo;
-    result = parseFloat(result.toPrecision(2));
+    result = parseFloat(result.toFixed(2));
     return result;
   }
 
@@ -33,10 +33,10 @@ export class HyperMath {
   ): number {
     let a = this.processInput(firstValue);
     let b = this.processInput(secondValue);
-    let numberOne = parseFloat(a.toPrecision(2));
-    let numberTwo = parseFloat(b.toPrecision(2));
+    let numberOne = parseFloat(a.toFixed(2));
+    let numberTwo = parseFloat(b.toFixed(2));
     let result = numberOne + numberTwo;
-    result = parseFloat(result.toPrecision(2));
+    result = parseFloat(result.toFixed(2));
     return result;
   }
 
@@ -49,10 +49,10 @@ export class HyperMath {
     if (a === 0 || b === 0) {
       return 0;
     }
-    let numberOne = parseFloat(a.toPrecision(2));
-    let numberTwo = parseFloat(b.toPrecision(2));
+    let numberOne = parseFloat(a.toFixed(2));
+    let numberTwo = parseFloat(b.toFixed(2));
     let result = numberOne / numberTwo;
-    result = parseFloat(result.toPrecision(2));
+    result = parseFloat(result.toFixed(2));
     return result;
   }
 
@@ -65,10 +65,10 @@ export class HyperMath {
     if (a === 0) {
       return 0;
     }
-    let numberOne = parseFloat(a.toPrecision(2));
-    let numberTwo = parseFloat(b.toPrecision(2));
+    let numberOne = parseFloat(a.toFixed(2));
+    let numberTwo = parseFloat(b.toFixed(2));
     let result = numberOne - numberTwo;
-    result = parseFloat(result.toPrecision(2));
+    result = parseFloat(result.toFixed(2));
     return result;
   }
 }

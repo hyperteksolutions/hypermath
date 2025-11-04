@@ -140,12 +140,54 @@ Formats a number to maintain precision up to 2 decimal places.
 
 **Throws:** `HyperMathError` if input is invalid
 
+## Migration from v0.0.x
+
+⚠️ **Version 0.1.0 introduces breaking changes.** If you're upgrading from v0.0.x, please note:
+
+### What Changed
+
+In previous versions (v0.0.x), invalid inputs would silently return `0` with a console warning. **Now, errors are thrown** for better error handling and debugging.
+
+**Old Behavior (v0.0.x):**
+```typescript
+HyperMath.multiply('invalid', 5);  // Returned 0 (with console warning)
+HyperMath.divide(10, 0);           // Returned 0
+```
+
+**New Behavior (v0.1.0+):**
+```typescript
+HyperMath.multiply('invalid', 5);  // Throws HyperMathError ❌
+HyperMath.divide(10, 0);           // Throws DivisionByZeroError ❌
+```
+
+### How to Update Your Code
+
+Wrap operations in try-catch blocks where invalid input is possible:
+
+```typescript
+// Before (v0.0.x) - unsafe
+const result = HyperMath.multiply(userInput, 5);
+
+// After (v0.1.0+) - safe
+try {
+  const result = HyperMath.multiply(userInput, 5);
+  // Use result...
+} catch (error) {
+  if (error instanceof HyperMathError) {
+    console.error('Invalid input:', error.message);
+    // Handle error appropriately
+  }
+}
+```
+
+See [CHANGELOG.md](CHANGELOG.md) for complete migration guide.
+
 ## Notes
 
 - **Precision**: This library uses `.toFixed(2)` internally to maintain precision up to 2 decimal places. This may lead to rounding in some cases. Be aware of this limitation when using the library for calculations requiring higher precision.
 - **Error handling**: The library now throws `HyperMathError` exceptions instead of returning 0 for invalid inputs. Make sure to handle these errors appropriately in your code.
 - **Edge cases**:
-  - **Division by zero**: Throws `HyperMathError` instead of returning 0
+  - **Division by zero**: Throws `DivisionByZeroError` instead of returning 0
   - **Invalid inputs**: Any null, undefined, or non-numeric string values will throw `HyperMathError`
   - **String parsing**: String inputs are parsed using `parseFloat()`, so partial numeric strings like "123abc" will parse as 123
 - **Type safety**: TypeScript users benefit from full type definitions and the custom `HyperMathError` class for better error handling

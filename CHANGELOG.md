@@ -7,16 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Fixed
-- 🐛 **String validation**: Changed from `parseFloat()` to `Number()` for string input validation to properly reject strings with trailing non-numeric characters (e.g., `"3.14abc"` now throws `HyperMathError` instead of being parsed as `3.14`)
+### Added
+- ✨ **Variadic Parameters**: `add()` and `subtract()` now support multiple arguments
+  - `HyperMath.add(1, 2, 3, 4, 5)` returns `15`
+  - `HyperMath.subtract(100, 10, 5, 2)` returns `83`
+  - Minimum 2 parameters required (maintains backward compatibility)
+  - All values are validated and processed with the same precision handling
 
 ### Changed
-- 📝 **Documentation**: Updated README to clarify that string validation uses `Number()` and rejects partial numeric strings
+- 🔧 **API Enhancement**: Updated `add()` and `subtract()` to use rest parameters (`...values`)
+- 📝 **Documentation**: Updated README and JSDoc comments to reflect variadic parameter support
 
 ### Testing
-- ✅ Added comprehensive tests for `processInput()` method (10+ new test cases)
-- ✅ Added comprehensive tests for `formatResult()` method
-- ✅ Test suite now includes 62 tests (up from 52)
+- ✅ Added 19 new tests for variadic parameter functionality
+- ✅ Test suite now includes 81 tests (up from 62)
+- ✅ Comprehensive coverage of multi-parameter scenarios, edge cases, and error conditions
+
+### Technical Notes
+- **Backward Compatibility**: Existing two-parameter calls continue to work without changes
+- **Type Safety**: Full TypeScript support with proper type inference for rest parameters
+- **Performance**: Uses efficient `reduce()` implementation for processing multiple values
+
+### Fixed
+- 🐛 **String validation**: Changed from `parseFloat()` to `Number()` for string input validation to properly reject strings with trailing non-numeric characters (e.g., `"3.14abc"` now throws `HyperMathError` instead of being parsed as `3.14`)
 
 ## [0.1.0] - 2025-11-04
 

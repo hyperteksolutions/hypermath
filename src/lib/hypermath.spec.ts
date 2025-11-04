@@ -124,6 +124,59 @@ describe('HyperMath', () => {
       expect(() => HyperMath.add(Infinity, 5)).toThrow(HyperMathError);
       expect(() => HyperMath.add(-Infinity, 5)).toThrow(HyperMathError);
     });
+
+    // Variadic parameter tests
+    describe('variadic parameters', () => {
+      it('should throw HyperMathError when no parameters provided', () => {
+        expect(() => (HyperMath.add as any)()).toThrow(HyperMathError);
+        expect(() => (HyperMath.add as any)()).toThrow(
+          'At least two values are required for addition',
+        );
+      });
+
+      it('should throw HyperMathError when only one parameter provided', () => {
+        expect(() => (HyperMath.add as any)(5)).toThrow(HyperMathError);
+        expect(() => (HyperMath.add as any)(5)).toThrow(
+          'At least two values are required for addition',
+        );
+      });
+
+      it('should add three numbers correctly', () => {
+        expect(HyperMath.add(1, 2, 3)).toBe(6);
+        expect(HyperMath.add(10, 5, 2.5)).toBe(17.5);
+      });
+
+      it('should add multiple numbers correctly', () => {
+        expect(HyperMath.add(1, 2, 3, 4, 5)).toBe(15);
+        expect(HyperMath.add(0.1, 0.2, 0.3, 0.4)).toBe(1);
+      });
+
+      it('should handle mix of numbers and strings', () => {
+        expect(HyperMath.add(1, '2', 3, '4', 5)).toBe(15);
+        expect(HyperMath.add('10.5', 2.3, '5.2')).toBe(18);
+      });
+
+      it('should handle negative numbers in variadic calls', () => {
+        expect(HyperMath.add(-1, -2, -3)).toBe(-6);
+        expect(HyperMath.add(10, -5, 3, -2)).toBe(6);
+      });
+
+      it('should maintain precision with multiple values', () => {
+        expect(HyperMath.add(0.1, 0.1, 0.1, 0.1, 0.1)).toBe(0.5);
+        expect(HyperMath.add(1.11, 2.22, 3.33)).toBe(6.66);
+      });
+
+      it('should throw HyperMathError if any value is invalid', () => {
+        expect(() => HyperMath.add(1, 2, 'abc', 4)).toThrow(HyperMathError);
+        expect(() => HyperMath.add(1, null as any, 3)).toThrow(HyperMathError);
+        expect(() => HyperMath.add(1, 2, NaN)).toThrow(HyperMathError);
+      });
+
+      it('should handle many parameters (10+)', () => {
+        expect(HyperMath.add(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)).toBe(10);
+        expect(HyperMath.add(0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)).toBe(4);
+      });
+    });
   });
 
   describe('divide', () => {
@@ -248,6 +301,68 @@ describe('HyperMath', () => {
     it('should throw HyperMathError for NaN and Infinity', () => {
       expect(() => HyperMath.subtract(NaN, 5)).toThrow(HyperMathError);
       expect(() => HyperMath.subtract(Infinity, 5)).toThrow(HyperMathError);
+    });
+
+    // Variadic parameter tests
+    describe('variadic parameters', () => {
+      it('should throw HyperMathError when no parameters provided', () => {
+        expect(() => (HyperMath.subtract as any)()).toThrow(HyperMathError);
+        expect(() => (HyperMath.subtract as any)()).toThrow(
+          'At least two values are required for subtraction',
+        );
+      });
+
+      it('should throw HyperMathError when only one parameter provided', () => {
+        expect(() => (HyperMath.subtract as any)(5)).toThrow(HyperMathError);
+        expect(() => (HyperMath.subtract as any)(5)).toThrow(
+          'At least two values are required for subtraction',
+        );
+      });
+
+      it('should subtract three numbers correctly (left to right)', () => {
+        expect(HyperMath.subtract(10, 3, 2)).toBe(5); // 10 - 3 - 2 = 5
+        expect(HyperMath.subtract(100, 25, 5)).toBe(70); // 100 - 25 - 5 = 70
+      });
+
+      it('should subtract multiple numbers correctly', () => {
+        expect(HyperMath.subtract(100, 10, 5, 2, 1)).toBe(82); // 100 - 10 - 5 - 2 - 1
+        expect(HyperMath.subtract(20, 5, 3, 2, 1)).toBe(9); // 20 - 5 - 3 - 2 - 1
+      });
+
+      it('should handle mix of numbers and strings', () => {
+        expect(HyperMath.subtract(100, '10', 5, '2')).toBe(83);
+        expect(HyperMath.subtract('50.5', 10.2, '5.3')).toBe(35);
+      });
+
+      it('should handle negative numbers in variadic calls', () => {
+        expect(HyperMath.subtract(10, -5, -3)).toBe(18); // 10 - (-5) - (-3) = 18
+        expect(HyperMath.subtract(-10, -5, -3)).toBe(-2); // -10 - (-5) - (-3) = -2
+      });
+
+      it('should maintain precision with multiple values', () => {
+        expect(HyperMath.subtract(1, 0.1, 0.1, 0.1, 0.1, 0.1)).toBe(0.5);
+        expect(HyperMath.subtract(10.5, 1.1, 2.2, 3.3)).toBe(3.9);
+      });
+
+      it('should throw HyperMathError if any value is invalid', () => {
+        expect(() => HyperMath.subtract(100, 10, 'abc', 5)).toThrow(
+          HyperMathError,
+        );
+        expect(() => HyperMath.subtract(100, null as any, 5)).toThrow(
+          HyperMathError,
+        );
+        expect(() => HyperMath.subtract(100, 10, NaN)).toThrow(HyperMathError);
+      });
+
+      it('should handle many parameters (10+)', () => {
+        expect(HyperMath.subtract(100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)).toBe(90);
+        expect(HyperMath.subtract(10, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5)).toBe(7);
+      });
+
+      it('should handle results that go negative', () => {
+        expect(HyperMath.subtract(5, 10, 3)).toBe(-8); // 5 - 10 - 3 = -8
+        expect(HyperMath.subtract(1, 2, 3, 4)).toBe(-8); // 1 - 2 - 3 - 4 = -8
+      });
     });
   });
 

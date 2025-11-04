@@ -119,21 +119,27 @@ export class HyperMath {
   }
 
   /**
-   * Adds two numbers with precision handling
+   * Adds multiple numbers with precision handling
    *
-   * @param firstValue - First number (number or string)
-   * @param secondValue - Second number (number or string)
-   * @returns Sum of the two numbers, formatted to 2 decimal places
+   * @param values - Numbers to add (numbers or strings)
+   * @returns Sum of all numbers, formatted to 2 decimal places
+   * @throws {HyperMathError} If fewer than 2 values provided or any input is invalid
    *
    * @example
    * HyperMath.add(0.1, 0.2) // Returns 0.3 instead of 0.30000000000000004
    * HyperMath.add('10.5', '2.3') // Returns 12.8
+   * HyperMath.add(1, 2, 3, 4, 5) // Returns 15
    */
-  public static add(firstValue: unknown, secondValue: unknown): number {
-    const a = this.processInput(firstValue);
-    const b = this.processInput(secondValue);
+  public static add(...values: unknown[]): number {
+    if (values.length < 2) {
+      throw new HyperMathError('At least two values are required for addition');
+    }
 
-    const result = a + b;
+    const result = values.reduce<number>((sum, value) => {
+      const processed = this.processInput(value);
+      return sum + processed;
+    }, 0);
+
     return this.formatResult(result);
   }
 
@@ -164,21 +170,32 @@ export class HyperMath {
   }
 
   /**
-   * Subtracts two numbers with precision handling
+   * Subtracts multiple numbers with precision handling
+   * First value minus all subsequent values
    *
-   * @param firstValue - Minuend (number or string)
-   * @param secondValue - Subtrahend (number or string)
-   * @returns Difference of the two numbers, formatted to 2 decimal places
+   * @param values - Numbers to subtract (numbers or strings)
+   * @returns Difference, formatted to 2 decimal places
+   * @throws {HyperMathError} If fewer than 2 values provided or any input is invalid
    *
    * @example
    * HyperMath.subtract(0.3, 0.1) // Returns 0.2 instead of 0.19999999999999998
    * HyperMath.subtract('10.5', '2.3') // Returns 8.2
+   * HyperMath.subtract(100, 10, 5, 2) // Returns 83
    */
-  public static subtract(firstValue: unknown, secondValue: unknown): number {
-    const a = this.processInput(firstValue);
-    const b = this.processInput(secondValue);
+  public static subtract(...values: unknown[]): number {
+    if (values.length < 2) {
+      throw new HyperMathError(
+        'At least two values are required for subtraction',
+      );
+    }
 
-    const result = a - b;
+    const first = this.processInput(values[0]);
+
+    const result = values.slice(1).reduce<number>((diff, value) => {
+      const processed = this.processInput(value);
+      return diff - processed;
+    }, first);
+
     return this.formatResult(result);
   }
 

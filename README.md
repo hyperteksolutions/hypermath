@@ -23,12 +23,14 @@ console.log(HyperMath.multiply(0.1, 0.2)); // 0.02 (instead of 0.020000000000000
 
 // Addition
 console.log(HyperMath.add(0.1, 0.2)); // 0.3 (instead of 0.30000000000000004)
+console.log(HyperMath.add(1, 2, 3, 4, 5)); // 15 (supports multiple values!)
 
 // Division
 console.log(HyperMath.divide(0.3, 0.1)); // 3 (instead of 2.9999999999999996)
 
 // Subtraction
 console.log(HyperMath.subtract(0.3, 0.1)); // 0.2 (instead of 0.19999999999999998)
+console.log(HyperMath.subtract(100, 10, 5, 2)); // 83 (supports multiple values!)
 
 // Format a number
 console.log(HyperMath.formatNumber(1.12345)); // 1.12
@@ -65,9 +67,10 @@ HyperMath.divide(10, 0); // Throws HyperMathError: "Division by zero is not allo
 - **Flexible inputs**: Handles both number and string inputs seamlessly
 - **Robust error handling**: Throws descriptive `HyperMathError` exceptions for invalid inputs
 - **Edge case protection**: Proper handling of division by zero and invalid operations
+- **Variadic parameters**: `add()` and `subtract()` support multiple values
 - **TypeScript support**: Full TypeScript definitions included
 - **Zero dependencies**: Lightweight with no external dependencies
-- **Comprehensive tests**: 52+ unit tests ensuring reliability
+- **Comprehensive tests**: 81+ unit tests ensuring reliability
 
 ## API
 
@@ -85,17 +88,24 @@ Multiplies two numbers with improved precision.
 
 ---
 
-### `HyperMath.add(firstValue: number | string, secondValue: number | string): number`
+### `HyperMath.add(...values: number | string): number`
 
-Adds two numbers with improved precision.
+Adds multiple numbers with improved precision.
 
 **Parameters:**
-- `firstValue`: Number or string to add
-- `secondValue`: Number or string to add
+- `...values`: Two or more numbers or strings to add
 
 **Returns:** The sum rounded to 2 decimal places
 
-**Throws:** `HyperMathError` if inputs are invalid
+**Throws:** `HyperMathError` if fewer than 2 values provided or any input is invalid
+
+**Examples:**
+```typescript
+HyperMath.add(1, 2); // 3
+HyperMath.add(1, 2, 3, 4, 5); // 15
+HyperMath.add(0.1, 0.2, 0.3); // 0.6
+HyperMath.add('10.5', 2.3, '5.2'); // 18
+```
 
 ---
 
@@ -115,17 +125,24 @@ Divides two numbers with improved precision.
 
 ---
 
-### `HyperMath.subtract(firstValue: number | string, secondValue: number | string): number`
+### `HyperMath.subtract(...values: number | string): number`
 
-Subtracts two numbers with improved precision.
+Subtracts multiple numbers with improved precision. The first value minus all subsequent values (left-to-right).
 
 **Parameters:**
-- `firstValue`: Number or string (minuend)
-- `secondValue`: Number or string to subtract (subtrahend)
+- `...values`: Two or more numbers or strings to subtract
 
 **Returns:** The difference rounded to 2 decimal places
 
-**Throws:** `HyperMathError` if inputs are invalid
+**Throws:** `HyperMathError` if fewer than 2 values provided or any input is invalid
+
+**Examples:**
+```typescript
+HyperMath.subtract(10, 3); // 7
+HyperMath.subtract(100, 10, 5, 2); // 83 (100 - 10 - 5 - 2)
+HyperMath.subtract(10, 0.1, 0.1, 0.1); // 9.7
+HyperMath.subtract('50.5', 10.2, '5.3'); // 35
+```
 
 ---
 

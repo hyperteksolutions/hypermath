@@ -317,4 +317,107 @@ describe('HyperMath', () => {
       expect(HyperMath.formatNumber(2.224)).toBe(2.22);
     });
   });
+describe('HyperMath.processInput', () => {
+  // Valid numbers
+  it('should return the same number for valid number input', () => {
+    expect((HyperMath as any).processInput(42)).toBe(42);
+    expect((HyperMath as any).processInput(-3.14)).toBe(-3.14);
+    expect((HyperMath as any).processInput(0)).toBe(0);
+  });
+
+  // Valid strings
+  it('should parse valid numeric strings', () => {
+    expect((HyperMath as any).processInput('42')).toBe(42);
+    expect((HyperMath as any).processInput('  -3.14  ')).toBe(-3.14);
+    expect((HyperMath as any).processInput('0')).toBe(0);
+    expect((HyperMath as any).processInput('2.5')).toBe(2.5);
+    expect((HyperMath as any).processInput('1.63575')).toBe(1.63575);
+  });
+
+  // Empty string
+  it('should throw HyperMathError for empty string', () => {
+    expect(() => (HyperMath as any).processInput('')).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput('   ')).toThrow(
+      HyperMathError,
+    );
+  });
+
+  // Invalid strings
+  it('should throw HyperMathError for non-numeric strings', () => {
+    expect(() => (HyperMath as any).processInput('abc')).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).processInput('3.14abc')).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).processInput('NaN')).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).processInput('Infinity')).toThrow(
+      HyperMathError,
+    );
+  });
+
+  // Null and undefined
+  it('should throw HyperMathError for null or undefined', () => {
+    expect(() => (HyperMath as any).processInput(null)).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput(undefined)).toThrow(
+      HyperMathError,
+    );
+  });
+
+  // NaN and Infinity
+  it('should throw HyperMathError for NaN and Infinity number inputs', () => {
+    expect(() => (HyperMath as any).processInput(NaN)).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput(Infinity)).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).processInput(-Infinity)).toThrow(
+      HyperMathError,
+    );
+  });
+
+  // Unsupported types
+  it('should throw HyperMathError for unsupported types', () => {
+    expect(() => (HyperMath as any).processInput({})).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput([])).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput(true)).toThrow(HyperMathError);
+    expect(() => (HyperMath as any).processInput(Symbol('sym'))).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).processInput(() => 1)).toThrow(
+      HyperMathError,
+    );
+  });
+});
+describe('HyperMath.formatResult', () => {
+  // Valid finite numbers
+  it('should format a number to 2 decimal places', () => {
+    expect((HyperMath as any).formatResult(3.14159)).toBe(3.14);
+    expect((HyperMath as any).formatResult(5.1)).toBe(5.1);
+    expect((HyperMath as any).formatResult(7)).toBe(7);
+    expect((HyperMath as any).formatResult(-2.567)).toBe(-2.57);
+    expect((HyperMath as any).formatResult(-0.1)).toBe(-0.1);
+    expect((HyperMath as any).formatResult(0.001)).toBe(0);
+    expect((HyperMath as any).formatResult(0.009)).toBe(0.01);
+    expect((HyperMath as any).formatResult(123456789.999)).toBe(123456790);
+    expect((HyperMath as any).formatResult(1.126)).toBe(1.13);
+    expect((HyperMath as any).formatResult(2.224)).toBe(2.22);
+    expect((HyperMath as any).formatResult(0)).toBe(0);
+  });
+
+  // Non-finite numbers
+  it('should throw HyperMathError for NaN', () => {
+    expect(() => (HyperMath as any).formatResult(NaN)).toThrow(HyperMathError);
+  });
+
+  it('should throw HyperMathError for Infinity', () => {
+    expect(() => (HyperMath as any).formatResult(Infinity)).toThrow(
+      HyperMathError,
+    );
+    expect(() => (HyperMath as any).formatResult(-Infinity)).toThrow(
+      HyperMathError,
+    );
+  });
+});
 });

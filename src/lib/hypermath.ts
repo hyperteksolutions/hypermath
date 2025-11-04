@@ -60,7 +60,10 @@ export class HyperMath {
         throw new HyperMathError('Invalid input: empty string');
       }
 
-      const parsedNumber = parseFloat(trimmedValue);
+      // Use Number() instead of parseFloat() to ensure the entire string is valid
+      // Number() returns NaN for strings with trailing non-numeric characters
+      // while parseFloat() would parse '3.14abc' as 3.14
+      const parsedNumber = Number(trimmedValue);
 
       // Check if parsing was successful and result is finite
       if (!Number.isFinite(parsedNumber)) {

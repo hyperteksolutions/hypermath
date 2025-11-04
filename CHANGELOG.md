@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Fixed
+- 🐛 **String validation**: Changed from `parseFloat()` to `Number()` for string input validation to properly reject strings with trailing non-numeric characters (e.g., `"3.14abc"` now throws `HyperMathError` instead of being parsed as `3.14`)
+
+### Changed
+- 📝 **Documentation**: Updated README to clarify that string validation uses `Number()` and rejects partial numeric strings
+
+### Testing
+- ✅ Added comprehensive tests for `processInput()` method (10+ new test cases)
+- ✅ Added comprehensive tests for `formatResult()` method
+- ✅ Test suite now includes 62 tests (up from 52)
+
 ## [0.1.0] - 2025-11-04
 
 ### ⚠️ BREAKING CHANGES

@@ -189,7 +189,7 @@ See [CHANGELOG.md](CHANGELOG.md) for complete migration guide.
 - **Edge cases**:
   - **Division by zero**: Throws `DivisionByZeroError` instead of returning 0
   - **Invalid inputs**: Any null, undefined, or non-numeric string values will throw `HyperMathError`
-  - **String parsing**: String inputs are parsed using `parseFloat()`, so partial numeric strings like "123abc" will parse as 123
+  - **String parsing**: String inputs are validated using `Number()` to ensure the entire string is numeric. Strings with trailing non-numeric characters (e.g., `"123abc"`) will throw `HyperMathError`
 - **Type safety**: TypeScript users benefit from full type definitions and the custom `HyperMathError` class for better error handling
 
 ## Support
